@@ -1,8 +1,16 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { Instagram, Facebook, Twitter, Youtube, Phone, Mail, MapPin } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import {
+  Instagram,
+  Facebook,
+  Twitter,
+  Youtube,
+  Phone,
+  Mail,
+  MapPin,
+} from "lucide-react";
 
 interface Settings {
   email: string;
@@ -19,28 +27,28 @@ interface Settings {
 }
 
 const defaultSettings: Settings = {
-  email: 'hello@chefchioma.com',
-  phone: '+234 801 234 5678',
-  location: 'Lagos, Nigeria',
-  serviceAreas: ['Lagos', 'Abuja', 'Beyond'],
-  instagram: 'https://instagram.com/chefchioma',
-  facebook: 'https://facebook.com/chefchioma',
-  chefName: 'Chef Chioma Okonkwo',
-  tagline: 'Elevating Nigerian cuisine through intimate dining experiences.',
+  email: "hello@chefchioma.com",
+  phone: "+234 801 234 5678",
+  location: "Lagos, Nigeria",
+  serviceAreas: ["Lagos", "Abuja", "Beyond"],
+  instagram: "https://instagram.com/chefchioma",
+  facebook: "https://facebook.com/chefchioma",
+  chefName: "Chef Chioma Okonkwo",
+  tagline: "Elevating Nigerian cuisine through intimate dining experiences.",
 };
 
 const footerLinks = {
   explore: [
-    { href: '/about', label: 'Meet the Chef' },
-    { href: '/services', label: 'Services' },
-    { href: '/menus', label: 'Sample Menus' },
-    { href: '/gallery', label: 'Gallery' },
+    { href: "/about", label: "Meet the Chef" },
+    { href: "/services", label: "Services" },
+    { href: "/menus", label: "Sample Menus" },
+    { href: "/gallery", label: "Gallery" },
   ],
   information: [
-    { href: '/blog', label: 'Blog' },
-    { href: '/faq', label: 'FAQ' },
-    { href: '/privacy', label: 'Privacy Policy' },
-    { href: '/terms', label: 'Terms of Service' },
+    { href: "/blog", label: "Blog" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
   ],
 };
 
@@ -60,17 +68,17 @@ export default function Footer() {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
-      const res = await fetch('/api/settings', { 
+
+      const res = await fetch("/api/settings", {
         signal: controller.signal,
-        cache: 'no-store',
+        cache: "no-store",
       });
-      
+
       clearTimeout(timeoutId);
-      
-      if (!res.ok) throw new Error('Failed to fetch');
+
+      if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
-      
+
       if (data.settings) {
         setSettings({
           ...defaultSettings,
@@ -83,7 +91,7 @@ export default function Footer() {
   };
 
   // Format phone for tel: link
-  const phoneLink = settings.phone.replace(/\s/g, '').replace(/[^+\d]/g, '');
+  const phoneLink = settings.phone.replace(/\s/g, "").replace(/[^+\d]/g, "");
 
   return (
     <footer className="bg-earth-900 text-cream">
@@ -93,10 +101,14 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <span className="font-script text-3xl text-copper-light leading-none block">Chioma</span>
+              <span className="font-script text-3xl text-copper-light leading-none block">
+                Chioma
+              </span>
               <div className="flex items-center gap-2 mt-1">
                 <div className="h-[1px] w-4 bg-cream/40" />
-                <span className="font-sans text-[9px] uppercase tracking-[0.25em] text-cream/60">Private Chef</span>
+                <span className="font-sans text-[9px] uppercase tracking-[0.25em] text-cream/60">
+                  Private Chef
+                </span>
                 <div className="h-[1px] w-4 bg-cream/40" />
               </div>
             </div>
@@ -218,12 +230,13 @@ export default function Footer() {
                   <MapPin className="w-4 h-4 text-copper-light mt-1" />
                   <span className="font-body">
                     {settings.location}
-                    {settings.serviceAreas && settings.serviceAreas.length > 0 && (
-                      <>
-                        <br />
-                        Serving {settings.serviceAreas.slice(0, 3).join(', ')}
-                      </>
-                    )}
+                    {settings.serviceAreas &&
+                      settings.serviceAreas.length > 0 && (
+                        <>
+                          <br />
+                          Serving {settings.serviceAreas.slice(0, 3).join(", ")}
+                        </>
+                      )}
                   </span>
                 </div>
               </li>
@@ -239,7 +252,15 @@ export default function Footer() {
             &copy; {currentYear} {settings.chefName}. All rights reserved.
           </p>
           <p className="font-body text-sm text-cream/50">
-            Crafted with passion in Lagos
+            Built by{" "}
+            <a
+              href="https://x.com/nueltek"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-copper hover:underline"
+            >
+              Nueltek
+            </a>
           </p>
         </div>
       </div>
