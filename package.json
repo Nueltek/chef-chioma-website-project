@@ -11,32 +11,33 @@
     "seed": "npx ts-node --compiler-options {\"module\":\"CommonJS\"} scripts/seed.ts"
   },
   "dependencies": {
-    "next": "^16.1.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "next-auth": "^4.24.11",
-    "mongoose": "^8.10.1",
+    "@tinymce/tinymce-react": "^6.3.0",
+    "cloudinary": "^2.5.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.3.1",
     "framer-motion": "^12.4.7",
     "lucide-react": "^0.474.0",
+    "mongoose": "^8.10.1",
+    "next": "^16.1.6",
+    "next-auth": "^4.24.11",
     "next-cloudinary": "^6.16.2",
-    "cloudinary": "^2.5.1",
-    "@tinymce/tinymce-react": "^6.3.0",
-    "slugify": "^1.6.6",
-    "date-fns": "^4.1.0",
-    "zod": "^3.24.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-dropzone": "^14.3.8",
     "react-hot-toast": "^2.5.1",
+    "slugify": "^1.6.6",
     "swr": "^2.3.3",
-    "clsx": "^2.1.1",
-    "react-dropzone": "^14.3.8"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
-    "typescript": "^5.7.3",
     "@types/node": "^22.13.4",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "tailwindcss": "^3.4.17",
-    "postcss": "^8.5.1",
     "autoprefixer": "^10.4.20",
-    "ts-node": "^10.9.2"
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
   }
 }
