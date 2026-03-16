@@ -2,8 +2,6 @@
 
 A stunning, fullstack website for a Nigerian private chef featuring elevated design, compelling copywriting, and a complete CMS for managing all content.
 
-![Chef Chioma](https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80)
-
 ## ✨ Features
 
 ### Frontend
