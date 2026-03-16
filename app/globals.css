@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&family=Pinyon+Script&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,6 +12,7 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -23,7 +22,12 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display font-normal;
   }
 
@@ -110,7 +114,7 @@
   }
 
   .img-overlay::after {
-    content: '';
+    content: "";
     @apply absolute inset-0 bg-gradient-to-t from-earth-900/60 via-earth-900/20 to-transparent;
   }
 
@@ -120,7 +124,7 @@
   }
 
   .grain-overlay::before {
-    content: '';
+    content: "";
     @apply absolute inset-0 pointer-events-none opacity-[0.03];
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
@@ -140,12 +144,19 @@
   }
 
   .link-underline::after {
-    content: '';
+    content: "";
     @apply absolute bottom-0 left-0 w-0 h-px bg-copper transition-all duration-400;
   }
 
   .link-underline:hover::after {
     @apply w-full;
+  }
+
+  /* GPU-accelerated animations for smoother scrolling */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
   }
 }
 
@@ -156,12 +167,24 @@
   }
 
   /* Stagger animation delays */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
-  .stagger-6 { animation-delay: 0.6s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
+  .stagger-6 {
+    animation-delay: 0.6s;
+  }
 
   /* Hide scrollbar utility */
   .scrollbar-hide {
@@ -214,26 +237,28 @@
 
 /* Spinner animation */
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin {
   animation: spin 1s linear infinite;
 }
 
-/* Page transition */
+/* Page transition - simplified for smoother performance */
 .page-transition {
-  animation: pageIn 0.6s ease-out forwards;
+  animation: pageIn 0.5s ease-out forwards;
 }
 
 @keyframes pageIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }

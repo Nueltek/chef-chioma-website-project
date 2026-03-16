@@ -1,12 +1,16 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
-import { ChefHat, Users, GraduationCap, Utensils } from 'lucide-react';
-import { images, staggerContainerVariants, staggerItemVariants } from '@/lib/utils';
-import SectionHeading from '@/components/ui/SectionHeading';
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, useInView } from "framer-motion";
+import { ChefHat, Users, GraduationCap, Utensils } from "lucide-react";
+import {
+  images,
+  staggerContainerVariants,
+  staggerItemVariants,
+} from "@/lib/utils";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 interface Service {
   _id: string;
@@ -18,43 +22,47 @@ interface Service {
 }
 
 const iconMap: Record<string, typeof ChefHat> = {
-  'private-dining': ChefHat,
-  'event-catering': Users,
-  'cooking-classes': GraduationCap,
-  'menu-development': Utensils,
+  "private-dining": ChefHat,
+  "event-catering": Users,
+  "cooking-classes": GraduationCap,
+  "menu-development": Utensils,
 };
 
 const fallbackServices: Service[] = [
   {
-    _id: '1',
-    slug: 'private-dining',
-    title: 'Private Dining',
-    tagline: 'Intimate Culinary Theatre',
-    description: 'Transform your home into an exclusive restaurant. From intimate dinners for two to gatherings of twenty, experience bespoke multi-course menus crafted to your preferences.',
+    _id: "1",
+    slug: "private-dining",
+    title: "Private Dining",
+    tagline: "Intimate Culinary Theatre",
+    description:
+      "Transform your home into an exclusive restaurant. From intimate dinners for two to gatherings of twenty, experience bespoke multi-course menus crafted to your preferences.",
     image: { url: images.privateDining },
   },
   {
-    _id: '2',
-    slug: 'event-catering',
-    title: 'Event Catering',
-    tagline: 'Celebrations Elevated',
-    description: 'Weddings, corporate functions, milestone celebrations—your events deserve food that creates lasting memories. Full-service catering with meticulous attention to detail.',
+    _id: "2",
+    slug: "event-catering",
+    title: "Event Catering",
+    tagline: "Celebrations Elevated",
+    description:
+      "Weddings, corporate functions, milestone celebrations—your events deserve food that creates lasting memories. Full-service catering with meticulous attention to detail.",
     image: { url: images.catering },
   },
   {
-    _id: '3',
-    slug: 'cooking-classes',
-    title: 'Cooking Classes',
-    tagline: 'Master the Art',
-    description: 'Hands-on experiences for individuals, couples, or groups. Learn the secrets of Nigerian cuisine—from perfecting jollof rice to mastering complex traditional techniques.',
+    _id: "3",
+    slug: "cooking-classes",
+    title: "Cooking Classes",
+    tagline: "Master the Art",
+    description:
+      "Hands-on experiences for individuals, couples, or groups. Learn the secrets of Nigerian cuisine—from perfecting jollof rice to mastering complex traditional techniques.",
     image: { url: images.classes },
   },
   {
-    _id: '4',
-    slug: 'menu-development',
-    title: 'Menu Development',
-    tagline: 'Culinary Consulting',
-    description: 'For restaurants and hospitality brands seeking authentic Nigerian flavors. Recipe development, menu curation, and training for your culinary team.',
+    _id: "4",
+    slug: "menu-development",
+    title: "Menu Development",
+    tagline: "Culinary Consulting",
+    description:
+      "For restaurants and hospitality brands seeking authentic Nigerian flavors. Recipe development, menu curation, and training for your culinary team.",
     image: { url: images.menuDev },
   },
 ];
@@ -71,7 +79,7 @@ export default function Services() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Only fetch once using ref
     if (!hasFetched.current) {
       hasFetched.current = true;
@@ -84,25 +92,34 @@ export default function Services() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-      const res = await fetch('/api/services?featured=true&limit=4', {
+      const res = await fetch("/api/services?featured=true&limit=4", {
         signal: controller.signal,
-        cache: 'no-store',
+        cache: "no-store",
       });
-      
+
       clearTimeout(timeoutId);
-      
-      if (!res.ok) throw new Error('Failed to fetch');
-      
+
+      if (!res.ok) throw new Error("Failed to fetch");
+
       const data = await res.json();
-      
+
       // Only update if we got valid data with items
-      if (data.services && Array.isArray(data.services) && data.services.length > 0) {
+      if (
+        data.services &&
+        Array.isArray(data.services) &&
+        data.services.length > 0
+      ) {
         const mergedServices = data.services.map((service: Service) => {
-          const fallback = fallbackServices.find(f => f.slug === service.slug);
+          const fallback = fallbackServices.find(
+            (f) => f.slug === service.slug,
+          );
           return {
             ...service,
-            image: service.image?.url ? service.image : { url: fallback?.image?.url || images.privateDining },
-            tagline: service.tagline || fallback?.tagline || 'Culinary Excellence',
+            image: service.image?.url
+              ? service.image
+              : { url: fallback?.image?.url || images.privateDining },
+            tagline:
+              service.tagline || fallback?.tagline || "Culinary Excellence",
           };
         });
         setServices(mergedServices);
@@ -110,7 +127,7 @@ export default function Services() {
       // If empty or invalid, keep fallback (already set)
     } catch (error) {
       // Keep fallback services on error
-      console.log('Using fallback services');
+      console.log("Using fallback services");
     }
   };
 
@@ -118,12 +135,13 @@ export default function Services() {
     <section className="relative bg-earth-800 py-20 lg:py-32 overflow-hidden">
       {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.03] bg-noise" />
-      
+
       {/* Warm gradient accent */}
-      <div 
+      <div
         className="absolute top-0 right-0 w-1/2 h-1/2 opacity-20"
         style={{
-          background: 'radial-gradient(ellipse at top right, rgba(184, 117, 51, 0.4) 0%, transparent 60%)',
+          background:
+            "radial-gradient(ellipse at top right, rgba(184, 117, 51, 0.4) 0%, transparent 60%)",
         }}
       />
 
@@ -175,9 +193,9 @@ export default function Services() {
                   <div className="absolute inset-0 p-5 md:p-6 lg:p-8 flex flex-col justify-end">
                     {/* Icon */}
                     <motion.div
-                      animate={{ 
+                      animate={{
                         y: mounted && isHovered ? -8 : 0,
-                        opacity: mounted && isHovered ? 0.5 : 1 
+                        opacity: mounted && isHovered ? 0.5 : 1,
                       }}
                       transition={{ duration: 0.3 }}
                       className="mb-3 md:mb-4"
@@ -206,8 +224,18 @@ export default function Services() {
                     <div className="mt-3 md:mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <span className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-widest text-copper-light">
                         Learn More
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
                         </svg>
                       </span>
                     </div>
@@ -227,7 +255,8 @@ export default function Services() {
           className="text-center mt-10 lg:mt-16"
         >
           <p className="font-body text-cream/70 mb-5 md:mb-6 max-w-xl mx-auto text-sm md:text-base">
-            Not sure which service fits your needs? Let&apos;s have a conversation.
+            Not sure which service fits your needs? Let&apos;s have a
+            conversation.
           </p>
           <Link
             href="/contact"
